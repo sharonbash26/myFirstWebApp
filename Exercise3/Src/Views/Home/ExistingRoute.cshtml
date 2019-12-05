@@ -1,0 +1,49 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>ExistingRoute</title>
+    <link rel="stylesheet" type="text/css" href="~/Styles/MapView.css" />
+</head>
+<body>
+    <canvas id="planeCanvas"></canvas>
+    <script src="~/Scripts/DrawModule.js"></script>
+    <script src="~/Scripts/MapDrawer.js"></script>
+    <script src="~/Scripts/Utils.js"></script>
+    <script src="~/Scripts/Services.js"></script>
+    <script>
+        const services = new Services();
+        const drawModule = new DrawModule("planeCanvas");
+        const mapDrawer = new MapDrawer(drawModule);
+
+        // init all action urls that we are going to use
+        const actions = {
+            getPlaneRoute: '@Url.Action("GetPlaneRoute", "Home")' ,
+        }
+
+        // initialize all the params that come from the viewbag, save them in "config"
+        const config = {
+            filename: '@ViewBag.filename',
+            freq: @ViewBag.freq ,
+        };
+
+        services.getPlaneRoute(config.filename, actions.getPlaneRoute)
+            .then(route => {
+                let i = 1;
+                const interval = setInterval(() => {
+                    mapDrawer.drawPath(route.slice(0, i));
+                    if (++i > route.length) {
+                        clearInterval(interval);
+                    }
+                }, 1000 / config.freq);
+            });
+
+    </script>
+</body>
+</html>

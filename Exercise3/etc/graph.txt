@@ -1,0 +1,35 @@
+* commit 7abb7f6057bf377eda18231a08071756533cc70f
+| Author: sharonbash26 <sharon.bash@live.biu.ac.il>
+| Date:   Thu Apr 25 17:06:04 2019 +0300
+| 
+|     Changes before submitting...
+| 
+* commit d68e0238f18812c5b2ce9914c8b77c2b9546813f
+| Author: sharonbash26 <sharon.bash@live.biu.ac.il>
+| Date:   Thu Apr 25 10:54:39 2019 +0300
+| 
+|     Finalized the project - it seems to be working
+| 
+* commit 561e471f97cdade8df2ba148a88e9b164e312f23
+| Author: sharonbash26 <sharon.bash@live.biu.ac.il>
+| Date:   Wed Apr 24 21:23:29 2019 +0300
+| 
+|     Implemented and tested the settings window
+| 
+* commit 59bd763dfe69324c52f2ccf8349382ed3de19fcc
+| Author: sharonbash26 <sharon.bash@live.biu.ac.il>
+| Date:   Wed Apr 24 20:14:38 2019 +0300
+| 
+|     Successfully connected to the simulator
+| 
+* commit b9d1c5de595729a9f9c45c7787105b79a0b77744
+| Author: sharonbash26 <sharon.bash@live.biu.ac.il>
+| Date:   Wed Apr 24 19:41:43 2019 +0300
+| 
+|     Initial commit
+| 
+* commit 87f748ff21a64f590a2ccf5d98da3686470a4ae3
+  Author: sharonbash26 <45743653+sharonbash26@users.noreply.github.com>
+  Date:   Wed Apr 24 19:36:16 2019 +0300
+  
+      Initial commit

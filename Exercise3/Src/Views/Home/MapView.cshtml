@@ -1,0 +1,74 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>MapView</title>
+    <link rel="stylesheet" type="text/css" href="~/Styles/MapView.css" />
+</head>
+<body>
+    <canvas id="planeCanvas"></canvas>
+    <script src="~/Scripts/DrawModule.js"></script>
+    <script src="~/Scripts/MapDrawer.js"></script>
+    <script src="~/Scripts/Utils.js"></script>
+    <script src="~/Scripts/Services.js"></script>
+    <script>
+        const services = new Services();
+        const drawModule = new DrawModule("planeCanvas");
+        const mapDrawer = new MapDrawer(drawModule);
+        const locations = [];
+
+        // init all action urls that we are going to use
+        const actions = {
+            getLocation: '@Url.Action("GetLocation", "Home")' ,
+            savePlaneRoute: '@Url.Action("SavePlaneRoute", "Home")' ,
+        }
+
+        // initialize all the params that come from the viewbag, save them in "config"
+        const config = {
+            ip: '@ViewBag.ip' ,
+            port: @ViewBag.port ,
+            state: '@ViewBag.state' ,
+        };
+        switch (config.state) {
+            case "multiple":
+                config.freq = parseInt('@ViewBag.freq');
+                break;
+            case "save":
+                config.freq = parseInt('@ViewBag.freq') ;
+                config.duration = parseInt('@ViewBag.duration');
+                config.filename = '@ViewBag.filename' ;
+                break;
+        }
+
+        function getAndDrawLocation() {
+            services.getLocation(config.ip, config.port, actions.getLocation)
+                .then(location => {
+                    locations.push(location);
+                    mapDrawer.drawPath(locations);
+                });
+        }
+
+        // logic for what to do.
+        switch (config.state) {
+            case "single":
+                getAndDrawLocation();
+                break;
+            case "multiple":
+                setInterval(getAndDrawLocation, (1000 / config.freq));
+                break;
+            case "save":
+                utils.performIntervalFor(getAndDrawLocation, config.freq, config.duration)
+                    .then(() => {
+                        services.savePlaneRoute(locations, config.filename, actions.savePlaneRoute);
+                    });
+                break;
+        }
+    </script>
+</body>
+</html>
